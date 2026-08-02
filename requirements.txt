@@ -4,6 +4,6 @@ mediapipe==0.10.21
 opencv-python-headless==4.10.0.84
 numpy==1.26.4
 pandas==2.2.3
-groq>=0.12.0
+groq==0.31.1
 gTTS==2.5.3
 python-dotenv==1.2.2
