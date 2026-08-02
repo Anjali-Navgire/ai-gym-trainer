@@ -110,6 +110,7 @@ def main():
                         st.session_state.audio_to_play = audio
                         st.session_state.coach_feedback = text
                         st.session_state.pending_audio = True
+                        
                 st.rerun()
 
         if workout_started:
@@ -202,7 +203,21 @@ def main():
             key="exercise-analysis",
             mode=WebRtcMode.SENDRECV,
             video_processor_factory=VideoProcessorClass,
-            rtc_configuration={"iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]},
+            rtc_configuration={
+                "iceServers": [
+                    {"urls": ["stun:stun.l.google.com:19302"]},
+                    {
+                        "urls": ["turn:openrelay.metered.ca:80"],
+                        "username": "openrelayproject",
+                        "credential": "openrelayproject",
+                    },
+                    {
+                        "urls": ["turn:openrelay.metered.ca:443"],
+                        "username": "openrelayproject",
+                        "credential": "openrelayproject",
+                    },
+                ]
+            },
             media_stream_constraints={
                 "video": True,
                 "audio": False
@@ -224,6 +239,7 @@ def main():
                 audio, text = result
                 st.session_state.audio_to_play = audio
                 st.session_state.coach_feedback = text
+                st.session_state.pending_audio = True
 
                 st.session_state.play_workout_started = False
 
